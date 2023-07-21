@@ -12,10 +12,13 @@ const Menu: React.FC = () => {
       </a>
       <div className="flex items-center justify-between gap-12">
         <span>
-          <img className="h-15 w-12" src={profileAvatar}></img>
+          <img
+            className="drop-shadow-xl h-20 w-32 hover:skew-y-12 hover:h-18 duration-500"
+            src={profileAvatar}
+          ></img>
         </span>
         <nav>
-          <section className="MOBILE-MENU flex lg:hidden mr-5">
+          <section className="MOBILE-MENU flex lg:hidden mr-16">
             <div
               className="HAMBURGER-ICON space-y-2"
               onClick={() => setIsNavOpen((prev) => !prev)} // toggle isNavOpen state on click
@@ -63,14 +66,14 @@ const Menu: React.FC = () => {
             </div>
           </section>
 
-          <ul className="DESKTOP-MENU hidden space-x-8 lg:flex mr-5 text-[20px]">
-            <li className="hover:text-[24px] hover:underline duration-300">
+          <ul className="DESKTOP-MENU hidden space-x-8 lg:flex mr-20 text-[20px]">
+            <li className="hover:text-[24px] hover:underline duration-300 font-medium">
               <a href="/about">About</a>
             </li>
-            <li className="hover:text-[24px] hover:underline duration-300">
+            <li className="hover:text-[24px] hover:underline duration-300 font-medium">
               <a href="/portfolio">Portfolio</a>
             </li>
-            <li className="hover:text-[24px] hover:underline duration-300">
+            <li className="hover:text-[24px] hover:underline duration-300 font-medium">
               <a href="/contact">Contact</a>
             </li>
           </ul>
