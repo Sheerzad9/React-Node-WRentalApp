@@ -1,6 +1,6 @@
 import { useState } from "react";
 import classes from "./Menu.module.css";
-import profileAvatar from "../../assets/avatars/account-avatar-profile.svg";
+import profileAvatar from "../../../public/images/avatars/account-avatar-profile.svg";
 
 const Menu: React.FC = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
