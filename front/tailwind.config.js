@@ -6,6 +6,7 @@ export default {
     extend: {
       colors: {
         primary: "#FDF2E9",
+        secondary: "#FFCA9F",
         "button-primary": "#e67e22",
       },
     },
