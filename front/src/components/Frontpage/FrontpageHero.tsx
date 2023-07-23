@@ -1,6 +1,6 @@
-import headerImg from "../../../assets/header/frontpage-header-img.jpg";
+import headerImg from "../../assets/header/frontpage-header-img.jpg";
 
-const Header: React.FC = () => {
+const FrontpageHero: React.FC = () => {
   return (
     <section className="bg-primary pt-8">
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 items-center">
@@ -29,4 +29,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default FrontpageHero;
