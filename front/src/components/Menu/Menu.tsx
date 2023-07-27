@@ -1,9 +1,16 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux/es/hooks/useDispatch";
+import { modalActions } from "../../store/modal-slice";
 import classes from "./Menu.module.css";
 import profileAvatar from "../../../public/images/avatars/account-avatar-profile.svg";
 
 const Menu: React.FC = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
+
+  const dispatch = useDispatch();
+  const handleLoginModal = () => {
+    dispatch(modalActions.openModal());
+  };
 
   return (
     <div className="flex items-center justify-between py-8 bg-[#FDF2E9]">
@@ -59,8 +66,8 @@ const Menu: React.FC = () => {
                 <li className="border-b border-gray-400 my-8 uppercase">
                   <a href="/portfolio">Portfolio</a>
                 </li>
-                <li className="border-b border-gray-400 my-8 uppercase">
-                  <a href="/contact">Contact</a>
+                <li className="border-b border-gray-400 my-8 uppercase cursor-pointer">
+                  <a onClick={handleLoginModal}>Kirjaudu sisään</a>
                 </li>
               </ul>
             </div>
@@ -73,8 +80,8 @@ const Menu: React.FC = () => {
             <li className="hover:text-[24px] hover:underline duration-300 font-medium">
               <a href="/portfolio">Portfolio</a>
             </li>
-            <li className="hover:text-[24px] hover:underline duration-300 font-medium">
-              <a href="/contact">Contact</a>
+            <li className="hover:text-[24px] hover:underline duration-300 font-medium cursor-pointer">
+              <a onClick={handleLoginModal}>Kirjaudu sisään</a>
             </li>
           </ul>
         </nav>
