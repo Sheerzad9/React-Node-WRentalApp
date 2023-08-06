@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { Product } from "../../public/dummy-data";
+import { Product } from "../../models/Product";
 import Star from "./Star";
 
 interface ProductCardProps {
