@@ -3,14 +3,14 @@ import FrontPageHero from "./FrontpageHero";
 import Carousel from "../UI/Carousel";
 import ProductCard from "../UI/ProductCard";
 import { Slider, Slide, DotGroup } from "pure-react-carousel";
-import { DUMMY_WEDDING_DRESS_ITEMS } from "../../public/dummy-data";
+import { Product } from "@/models/Product";
 import signUpAvatar from "../../public/avatars/signup-avatar.svg";
 import addProductAvatar from "../../public/avatars/add-product-avatar.svg";
 import shoppingAvatar from "../../public/avatars/shopping.svg";
 import deliveryAvatar from "../../public/avatars/delivery-avatar.svg";
 import Image from "next/image";
 
-const Frontpage: React.FC = () => {
+const Frontpage = (props: { frontPageData: Product[] }) => {
   return (
     <>
       <FrontPageHero />
@@ -72,14 +72,14 @@ const Frontpage: React.FC = () => {
           </div>
         </div>
       </div>
-      <Carousel slides={DUMMY_WEDDING_DRESS_ITEMS.length}>
+      <Carousel slides={props.frontPageData.length}>
         <div className="max-w-[350px] md:max-w-screen-lg lg:max-w-screen-2xl w-full h-full mx-auto overflow-x-hidden overflow-y-hidden">
           <Slider>
             <div
               id="slider"
               className="h-full w-full flex lg:gap-8 md:gap-6 gap-14 items-center justify-start transition ease-out duration-700 md:py-2"
             >
-              {DUMMY_WEDDING_DRESS_ITEMS.map((item, i) => (
+              {props.frontPageData.map((item, i) => (
                 <Slide key={i} index={i}>
                   <DotGroup>
                     <ProductCard product={item} />
