@@ -1,14 +1,22 @@
 "use client";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { modalActions } from "../../../store/modal-slice";
 import { RootState } from "../../../store";
 import Modal from "react-modal";
+import Login from "@/components/Forms/Login";
 
 const RegisterModal: React.FC = () => {
   const showModal = useSelector(
     (state: RootState) => state.modal.showRegisterModal
   );
   const dispatch = useDispatch();
+
+  useEffect((): any => {
+    showModal
+      ? (document.body.style.overflow = "hidden")
+      : (document.body.style.overflow = "unset");
+  }, [showModal]);
 
   const handleModalClosing = () => {
     dispatch(modalActions.closeModal());
@@ -17,13 +25,13 @@ const RegisterModal: React.FC = () => {
   return (
     <div>
       <Modal
-        className="h-[250px] w-lg mx-auto my-48 bg-slate-400"
+        className="max-h-max max-w-sm md:max-w-lg lg:max-w-2xl mx-auto my-12 bg-black bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg border-none"
         isOpen={showModal}
         shouldCloseOnOverlayClick={true}
         onRequestClose={handleModalClosing}
+        ariaHideApp={false}
       >
-        <p>Modal text!</p>
-        <button onClick={handleModalClosing}>Close Modal</button>
+        <Login />
       </Modal>
     </div>
   );
