@@ -1,14 +1,21 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import { modalActions } from "../../store/modal-slice";
+import { useSelector } from "react-redux";
 import Image from "next/image";
 import classes from "./Menu.module.css";
 import profileAvatar from "../../public/avatars/account-avatar-profile.svg";
 import logo from "./../../app/assets/logo.png";
+import { RootState } from "@/store";
 
 const Menu: React.FC = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
+  const { modal, user } = useSelector((state: RootState) => state);
+
+  useEffect(() => {
+    if (modal.showRegisterModal) setIsNavOpen(false);
+  }, [modal.showRegisterModal]);
 
   const dispatch = useDispatch();
   const handleLoginModal = () => {
@@ -84,9 +91,15 @@ const Menu: React.FC = () => {
             <li className="hover:text-[24px] hover:underline duration-300 font-medium">
               <a href="/portfolio">Portfolio</a>
             </li>
-            <li className="hover:text-[24px] hover:underline duration-300 font-medium cursor-pointer">
-              <a onClick={handleLoginModal}>Kirjaudu sisään</a>
-            </li>
+            {!user.isLoggedin ? (
+              <li className="hover:text-[24px] hover:underline duration-300 font-medium cursor-pointer">
+                <a onClick={handleLoginModal}>Kirjaudu sisään</a>
+              </li>
+            ) : (
+              <li className="hover:text-[24px] hover:underline duration-300 font-medium cursor-pointer">
+                <a onClick={handleLoginModal}>Kirjaudu ulos</a>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
