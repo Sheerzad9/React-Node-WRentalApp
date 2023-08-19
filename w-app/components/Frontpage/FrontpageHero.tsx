@@ -15,10 +15,10 @@ const FrontpageHero: React.FC = () => {
             laudantium ea, corrupti voluptas. Nesciunt, harum!
           </p>
           <a className="inline-block sm:w-1/3 p-4 text-center text-white rounded-full bg-button-primary mr-4 font-extrabold text-lg cursor-pointer shadow-md transition-all duration-300 ease-in-out hover:bg-[#fb923c] hover:shadow-lg hover:w-2/5">
-            Register now
+            Rekisteröidy nyt
           </a>
           <a className="inline-block sm:w-1/3 p-4 text-center text-[#343a40] rounded-full font-extrabold text-lg bg-white cursor-pointer shadow-md transition-all duration-300 hover:bg-[#e9ecef]  hover:shadow-lg hover:w-2/5 mb-24 md:mb-0">
-            Browse more &darr;
+            Lue lisää &darr;
           </a>
         </div>
         <div className="w-full md:w-2/3 mb-24">
