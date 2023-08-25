@@ -2,15 +2,14 @@
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import { userActions } from "@/store/user-slice";
 import { modalActions } from "@/store/modal-slice";
-import { useSelector } from "react-redux";
 import { loginSchema } from "@/schemas/loginSchema";
 import { useFormik } from "formik";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { User } from "@/store/user-slice";
+import { AppDispatch } from "@/store";
 
 const Login: React.FC = () => {
-  const dispatch = useDispatch();
-
+  const dispatch = useDispatch<AppDispatch>();
   const supabase = createClientComponentClient();
 
   const handleLoginFormSubmit = async (
