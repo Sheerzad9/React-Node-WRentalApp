@@ -12,6 +12,9 @@ module.exports = {
         secondary: "#FFCA9F",
         "button-primary": "#e67e22",
       },
+      backgroundImage: {
+        "blob-img": "url(/background/blob_background.jpg)",
+      },
     },
   },
   plugins: [],
