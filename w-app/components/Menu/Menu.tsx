@@ -2,24 +2,35 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import { modalActions } from "../../store/modal-slice";
+import { handleLogout } from "@/store/user-slice";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import classes from "./Menu.module.css";
 import profileAvatar from "../../public/avatars/account-avatar-profile.svg";
 import logo from "./../../app/assets/logo.png";
-import { RootState } from "@/store";
+import { RootState, AppDispatch } from "@/store";
+import { checkIsUserLoggedIn } from "@/store/user-slice";
 
 const Menu: React.FC = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
   const { modal, user } = useSelector((state: RootState) => state);
+  const dispatch = useDispatch<AppDispatch>();
+
+  // Menu is going to be in every single page view, so below we check if we have user in cookies or sessionstorage. To be implemented: fetch also the profilePicUrl value or add it to supabase metadata response directly
+  useEffect(() => {
+    dispatch(checkIsUserLoggedIn(""));
+  }, [dispatch]);
 
   useEffect(() => {
     if (modal.showRegisterModal) setIsNavOpen(false);
   }, [modal.showRegisterModal]);
 
-  const dispatch = useDispatch();
   const handleLoginModal = () => {
     dispatch(modalActions.openModal());
+  };
+
+  const logout = () => {
+    dispatch(handleLogout());
   };
 
   return (
@@ -97,7 +108,7 @@ const Menu: React.FC = () => {
               </li>
             ) : (
               <li className="hover:text-[24px] hover:underline duration-300 font-medium cursor-pointer">
-                <a onClick={handleLoginModal}>Kirjaudu ulos</a>
+                <a onClick={logout}>Kirjaudu ulos</a>
               </li>
             )}
           </ul>
