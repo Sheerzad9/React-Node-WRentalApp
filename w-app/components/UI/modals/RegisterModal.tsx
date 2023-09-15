@@ -4,11 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { modalActions } from "../../../store/modal-slice";
 import { RootState } from "../../../store";
 import Modal from "react-modal";
-import Login from "@/components/Forms/Login";
+import LoginForm from "@/components/Forms/LoginForm";
+import RegisterForm from "@/components/Forms/RegisterForm";
 
 const RegisterModal: React.FC = () => {
-  const showModal = useSelector(
-    (state: RootState) => state.modal.showRegisterModal
+  const { showRegisterModal: showModal, showLoginForm } = useSelector(
+    (state: RootState) => state.modal
   );
   const dispatch = useDispatch();
 
@@ -31,7 +32,7 @@ const RegisterModal: React.FC = () => {
         onRequestClose={handleModalClosing}
         ariaHideApp={false}
       >
-        <Login />
+        {showLoginForm ? <LoginForm /> : <RegisterForm />}
       </Modal>
     </div>
   );
