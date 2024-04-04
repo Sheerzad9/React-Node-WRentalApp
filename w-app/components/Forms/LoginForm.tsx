@@ -12,10 +12,7 @@ const LoginForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const supabase = createClientComponentClient();
 
-  const handleLoginFormSubmit = async (
-    values: { email: string; password: string },
-    actions: any
-  ) => {
+  const handleLoginFormSubmit = async (values: { email: string; password: string }, actions: any) => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: values.email,
       password: values.password,
@@ -39,17 +36,7 @@ const LoginForm: React.FC = () => {
     dispatch(modalActions.closeModal());
   };
 
-  const {
-    values,
-    handleBlur,
-    touched,
-    errors,
-    handleChange,
-    handleSubmit,
-    isValid,
-    dirty,
-    setFieldError,
-  } = useFormik({
+  const { values, handleBlur, touched, errors, handleChange, handleSubmit, isValid, dirty, setFieldError } = useFormik({
     initialValues: {
       email: "",
       password: "",
@@ -62,19 +49,15 @@ const LoginForm: React.FC = () => {
   const passwordHasErrors = errors.password && touched.password;
 
   return (
-    <div className="bg-blob-img md:h-full md:w-full relative flex">
+    <div className="bg-blob-img md:h-full md:w-full relative flex rounded-2xl">
       <div className="sm:w-full m-16 md:justify-center mx-auto sm:m-16">
         <form
           onSubmit={handleSubmit}
           className="bg-white bg-opacity-60 backdrop-filter backdrop-blur-lg shadow-md rounded px-8 pt-6 pb-8 mb-4 h-full items-center flex flex-col w-full"
         >
-          <h2 className="text-2xl sm:text-4xl font-bold text-gray-700 mb-10">
-            Kirjaudu sisään
-          </h2>
+          <h2 className="text-2xl sm:text-4xl font-bold text-gray-700 mb-10">Kirjaudu sisään</h2>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Sähköposti
-            </label>
+            <label className="block text-gray-700 text-sm font-bold mb-2">Sähköposti</label>
             <input
               className={`shadow appearance-none border rounded w-72 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline duration-300 ${
                 emailHasErrors && "border-2 border-rose-500"
@@ -86,14 +69,10 @@ const LoginForm: React.FC = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {emailHasErrors && (
-              <p className="text-rose-400 text-xs">{errors.email}</p>
-            )}
+            {emailHasErrors && <p className="text-rose-400 text-xs">{errors.email}</p>}
           </div>
           <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Salasana
-            </label>
+            <label className="block text-gray-700 text-sm font-bold mb-2">Salasana</label>
             <input
               className={`shadow appearance-none border rounded w-72 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline duration-300 ${
                 passwordHasErrors && "border-2 border-rose-500"
@@ -105,9 +84,7 @@ const LoginForm: React.FC = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {passwordHasErrors && (
-              <p className="text-rose-400 text-xs">{errors.password}</p>
-            )}
+            {passwordHasErrors && <p className="text-rose-400 text-xs">{errors.password}</p>}
           </div>
           <div className="flex items-center gap-10 flex-col w-full">
             <button
@@ -117,17 +94,12 @@ const LoginForm: React.FC = () => {
               Kirjaudu sisään
             </button>
             <div className="flex justify-around w-full">
-              <a
-                className="inline-block align-baseline font-bold text-xs sm:text-sm text-blue-500 hover:text-blue-800"
-                href="#"
-              >
+              <a className="inline-block align-baseline font-bold text-xs sm:text-sm text-blue-500 hover:text-blue-800" href="#">
                 Salasana unohtunut?
               </a>
               <button
                 className="inline-block align-baseline font-bold text-xs sm:text-sm text-blue-500 hover:text-blue-800"
-                onClick={() =>
-                  dispatch(modalActions.setFormView({ formView: false }))
-                }
+                onClick={() => dispatch(modalActions.setFormView({ formView: false }))}
               >
                 Rekisteröidy nyt
               </button>
