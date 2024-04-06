@@ -3,13 +3,13 @@ import * as yup from "yup";
 export const registerSchema = yup.object().shape({
   firstname: yup
     .string()
-    .matches(/^[a-ö]+$/, "Nimessä ei saa olla numeroita")
+    .matches(/^[a-öA-Ö]+$/, "Nimessä ei saa olla numeroita")
     .strict()
     .min(2, "Etunimen oltava vähintään 2 merkkiä")
     .required("Pakollinen kenttä"),
   lastname: yup
     .string()
-    .matches(/^[a-ö]+$/, "Nimessä ei saa olla numeroita")
+    .matches(/^[a-öA-Ö]+$/, "Nimessä ei saa olla numeroita")
     .strict()
     .min(2, "Sukunimen oltava vähintään 2 merkkiä")
     .required("Pakollinen kenttä"),
