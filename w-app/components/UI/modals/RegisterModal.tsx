@@ -8,15 +8,11 @@ import LoginForm from "@/components/Forms/LoginForm";
 import RegisterForm from "@/components/Forms/RegisterForm";
 
 const RegisterModal: React.FC = () => {
-  const { showRegisterModal: showModal, showLoginForm } = useSelector(
-    (state: RootState) => state.modal
-  );
+  const { showRegisterModal: showModal, showLoginForm } = useSelector((state: RootState) => state.modal);
   const dispatch = useDispatch();
 
   useEffect((): any => {
-    showModal
-      ? (document.body.style.overflow = "hidden")
-      : (document.body.style.overflow = "unset");
+    showModal ? (document.body.style.overflow = "hidden") : (document.body.style.overflow = "unset");
   }, [showModal]);
 
   const handleModalClosing = () => {
@@ -26,7 +22,7 @@ const RegisterModal: React.FC = () => {
   return (
     <div>
       <Modal
-        className="max-h-max max-w-sm md:max-w-lg lg:max-w-2xl mx-auto my-12 bg-black bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg border-none"
+        className="max-h-max max-w-sm md:max-w-lg lg:max-w-2xl mx-auto my-12 bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg"
         isOpen={showModal}
         shouldCloseOnOverlayClick={true}
         onRequestClose={handleModalClosing}
