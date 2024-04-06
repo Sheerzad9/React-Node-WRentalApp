@@ -13,21 +13,12 @@ export const registerSchema = yup.object().shape({
     .strict()
     .min(2, "Sukunimen oltava vähintään 2 merkkiä")
     .required("Pakollinen kenttä"),
-  email: yup
-    .string()
-    .email("Syöttämäsi sähköposti on virheellinen")
-    .required("Pakollinen kenttä"),
+  email: yup.string().email("Syöttämäsi sähköposti on virheellinen").required("Pakollinen kenttä"),
   date_of_birth: yup
     .date()
     .typeError("Syötä päivä muodossa PP.MM.VVVV")
-    .required()
+    .required("Pakollinen kenttä")
     .min("1950-01-01", "Syötä edes realistinen aika....")
-    .max(
-      "2005-01-01",
-      "Sinun on oltava vähintään 18-vuotias luodaksesi profiili"
-    ),
-  password: yup
-    .string()
-    .min(5, "Salasanan on oltava vähintään 5-merkin pituinen")
-    .required("Pakollinen kenttä"),
+    .max("2005-01-01", "Sinun on oltava vähintään 18-vuotias luodaksesi profiili"),
+  password: yup.string().min(5, "Salasanan on oltava vähintään 5-merkin pituinen").required("Pakollinen kenttä"),
 });
