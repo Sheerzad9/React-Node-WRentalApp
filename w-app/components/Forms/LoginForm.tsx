@@ -7,16 +7,19 @@ import { useFormik } from "formik";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { User } from "@/store/user-slice";
 import { AppDispatch } from "@/store";
+import { loadSpinnerActions } from "@/store/loadspinner-slice";
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const supabase = createClientComponentClient();
 
   const handleLoginFormSubmit = async (values: { email: string; password: string }, actions: any) => {
+    dispatch(loadSpinnerActions.showLoadSpinner());
     const { data, error } = await supabase.auth.signInWithPassword({
       email: values.email,
       password: values.password,
     });
+    dispatch(loadSpinnerActions.hideLoadSpinner());
 
     if (error) {
       setFieldError("password", "Sähköposti tai salasana on virheellinen.");
