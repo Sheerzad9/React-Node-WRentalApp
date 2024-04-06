@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import modalReducer from "./modal-slice";
-import useReducer from "./user-slice";
+import userReducer from "./user-slice";
+import spinnerReducer from "./loadspinner-slice";
 
 const store = configureStore({
-  reducer: { modal: modalReducer, user: useReducer },
+  reducer: { modal: modalReducer, user: userReducer, spinner: spinnerReducer },
 });
 
 export type AppDispatch = typeof store.dispatch;
