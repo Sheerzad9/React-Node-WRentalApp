@@ -1,11 +1,10 @@
 "use client";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
-import { userActions } from "@/store/user-slice";
+import { setUserById } from "@/store/user-slice";
 import { modalActions } from "@/store/modal-slice";
 import { loginSchema } from "@/schemas/loginSchema";
 import { useFormik } from "formik";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { User } from "@/store/user-slice";
 import { AppDispatch } from "@/store";
 import { loadSpinnerActions } from "@/store/loadspinner-slice";
 
@@ -26,16 +25,7 @@ const LoginForm: React.FC = () => {
       return;
     }
 
-    const user: User = {
-      isLoggedin: true,
-      id: data.user.id,
-      email: data.user.email!,
-      firstname: data.user.user_metadata["firstname"],
-      lastname: data.user.user_metadata["lastname"],
-      profilePicUrl: null,
-    };
-
-    dispatch(userActions.setUser(user));
+    dispatch(setUserById(data.user.id));
     dispatch(modalActions.closeModal());
   };
 
