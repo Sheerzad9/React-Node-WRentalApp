@@ -14,7 +14,7 @@ const FrontpageHero: React.FC = () => {
             distinctio debitis doloribus temporibus itaque a molestiae
             laudantium ea, corrupti voluptas. Nesciunt, harum!
           </p>
-          <a className="hidden sm:inline-block sm:w-2/7 lg:w-1/3 p-4 text-center text-white rounded-full bg-button-primary mr-4 font-extrabold text-md lg:text-lg cursor-pointer shadow-md transition-all duration-300 ease-in-out hover:bg-[#fb923c] hover:shadow-lg lg:hover:w-2/5 sm:hover:w-3/5">
+          <a className="hidden sm:inline-block md:w-2/7 lg:w-1/3 p-4 text-center text-white rounded-full bg-button-primary mr-4 font-extrabold text-md lg:text-lg cursor-pointer shadow-md transition-all duration-300 ease-in-out hover:bg-[#fb923c] hover:shadow-lg lg:hover:w-2/5 sm:hover:w-3/5">
             Rekisteröidy nyt
           </a>
           <a className="hidden sm:inline-block sm:w-2/7 lg:w-1/3 p-4 text-center text-[#343a40] rounded-full font-extrabold text-md  lg:text-lg bg-white cursor-pointer shadow-md transition-all duration-300 hover:bg-[#e9ecef]  hover:shadow-lg lg:hover:w-2/5 sm:hover:w-2/5 mb-24 md:mb-0">
