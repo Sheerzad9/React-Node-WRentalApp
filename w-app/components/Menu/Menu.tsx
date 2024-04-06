@@ -16,7 +16,7 @@ const Menu: React.FC = () => {
   const { modal, user } = useSelector((state: RootState) => state);
   const dispatch = useDispatch<AppDispatch>();
 
-  // Menu is going to be in every single page view, so below we check if we have user in cookies or sessionstorage. To be implemented: fetch also the profilePicUrl value or add it to supabase metadata response directly
+  // Menu is going to be in every single page view, so below we check if we have user in cookies or sessionstorage.
   useEffect(() => {
     dispatch(checkIsUserLoggedIn(""));
   }, [dispatch]);
@@ -40,11 +40,7 @@ const Menu: React.FC = () => {
       </a>
       <div className="flex items-center justify-between gap-12">
         <span>
-          <Image
-            alt="image of profile"
-            className="drop-shadow-xl h-20 w-32 hover:skew-y-12 hover:h-18 duration-500"
-            src={profileAvatar}
-          />
+          <Image alt="image of profile" className="drop-shadow-xl h-20 w-32 hover:skew-y-12 hover:h-18 duration-500" src={profileAvatar} />
         </span>
         <nav>
           <section className="MOBILE-MENU flex lg:hidden mr-16">
@@ -57,12 +53,7 @@ const Menu: React.FC = () => {
               <span className="block h-0.5 w-8 animate-pulse bg-gray-600"></span>
             </div>
 
-            <div
-              className={
-                "bg-[#FDF2E9] " +
-                (isNavOpen ? classes.showMenuNav : classes.hideMenuNav)
-              }
-            >
+            <div className={"bg-[#FDF2E9] " + (isNavOpen ? classes.showMenuNav : classes.hideMenuNav)}>
               {" "}
               <div
                 className="CROSS-ICON absolute top-0 right-0 px-8 py-8"
