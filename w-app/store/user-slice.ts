@@ -27,11 +27,11 @@ const userSlice = createSlice({
   name: "userSlice",
   initialState: initState,
   reducers: {
-    setUser(state, action: PayloadAction<User>) {
+    setUser(state: any, action: PayloadAction<User>) {
       return (state = action.payload);
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: (builder: any) => {
     builder.addCase(handleLogout.fulfilled, (state, action: PayloadAction<any>) => {
       // anything returned from createAsynchThunk, will be found from action.payload
       console.log("state: ", state);
@@ -52,7 +52,7 @@ export const checkIsUserLoggedIn = createAsyncThunk<any, any, { state: RootState
   }
 });
 
-export const setUserById = createAsyncThunk("user/setUserById", async (userId: string, thunkAPI) => {
+export const setUserById = createAsyncThunk("user/setUserById", async (userId: string, thunkAPI: any) => {
   const user: User = await fetchUserWithIdFromDB(userId);
 
   thunkAPI.dispatch(userActions.setUser(user));
@@ -74,7 +74,7 @@ const fetchUserWithIdFromDB = async (userId: string): Promise<User> => {
   return user;
 };
 
-export const handleLogout = createAsyncThunk("user/handleLogout", async (_, thunkAPI) => {
+export const handleLogout = createAsyncThunk("user/handleLogout", async (_: any, thunkAPI: any) => {
   thunkAPI.dispatch(loadSpinnerActions.showLoadSpinner());
   await supabase.auth.signOut();
   thunkAPI.dispatch(loadSpinnerActions.hideLoadSpinner());
