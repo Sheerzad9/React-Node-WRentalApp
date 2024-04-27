@@ -1,0 +1,9 @@
+<h2>Hei {{ .Data.firstname }}! Melkein valmista, vahvista vielä tilisi</h2>
+
+<p>Vahvista tilisi allaolevasta linkistä:</p>
+<p>
+  <a
+    href="http://127.0.0.1:54321/auth/v1/verify?token={{.TokenHash}}&type=signup&redirect_to=http://localhost:3000/auth/callback"
+    >Vahvista tilisi tästä</a
+  >
+</p>
