@@ -1,18 +1,36 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import { modalActions } from "../../store/modal-slice";
+import { handleLogout } from "@/store/user-slice";
+import { useSelector } from "react-redux";
 import Image from "next/image";
 import classes from "./Menu.module.css";
 import profileAvatar from "../../public/avatars/account-avatar-profile.svg";
 import logo from "./../../app/assets/logo.png";
+import { RootState, AppDispatch } from "@/store";
+import { checkIsUserLoggedIn } from "@/store/user-slice";
 
 const Menu: React.FC = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
+  const { modal, user } = useSelector((state: RootState) => state);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const dispatch = useDispatch();
+  // Menu is going to be in every single page view, so below we check if we have user in cookies or sessionstorage.
+  useEffect(() => {
+    dispatch(checkIsUserLoggedIn(""));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (modal.showRegisterModal) setIsNavOpen(false);
+  }, [modal.showRegisterModal]);
+
   const handleLoginModal = () => {
     dispatch(modalActions.openModal());
+  };
+
+  const logout = () => {
+    dispatch(handleLogout());
   };
 
   return (
@@ -22,11 +40,7 @@ const Menu: React.FC = () => {
       </a>
       <div className="flex items-center justify-between gap-12">
         <span>
-          <Image
-            alt="image of profile"
-            className="drop-shadow-xl h-20 w-32 hover:skew-y-12 hover:h-18 duration-500"
-            src={profileAvatar}
-          />
+          <Image alt="image of profile" className="drop-shadow-xl h-20 w-32 hover:skew-y-12 hover:h-18 duration-500" src={profileAvatar} />
         </span>
         <nav>
           <section className="MOBILE-MENU flex lg:hidden mr-16">
@@ -39,12 +53,7 @@ const Menu: React.FC = () => {
               <span className="block h-0.5 w-8 animate-pulse bg-gray-600"></span>
             </div>
 
-            <div
-              className={
-                "bg-[#FDF2E9] " +
-                (isNavOpen ? classes.showMenuNav : classes.hideMenuNav)
-              }
-            >
+            <div className={"bg-[#FDF2E9] " + (isNavOpen ? classes.showMenuNav : classes.hideMenuNav)}>
               {" "}
               <div
                 className="CROSS-ICON absolute top-0 right-0 px-8 py-8"
@@ -84,9 +93,15 @@ const Menu: React.FC = () => {
             <li className="hover:text-[24px] hover:underline duration-300 font-medium">
               <a href="/portfolio">Portfolio</a>
             </li>
-            <li className="hover:text-[24px] hover:underline duration-300 font-medium cursor-pointer">
-              <a onClick={handleLoginModal}>Kirjaudu sisään</a>
-            </li>
+            {!user.isLoggedin ? (
+              <li className="hover:text-[24px] hover:underline duration-300 font-medium cursor-pointer">
+                <a onClick={handleLoginModal}>Kirjaudu sisään</a>
+              </li>
+            ) : (
+              <li className="hover:text-[24px] hover:underline duration-300 font-medium cursor-pointer">
+                <a onClick={logout}>Kirjaudu ulos</a>
+              </li>
+            )}
           </ul>
         </nav>
       </div>

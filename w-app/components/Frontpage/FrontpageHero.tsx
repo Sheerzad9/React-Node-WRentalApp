@@ -14,11 +14,11 @@ const FrontpageHero: React.FC = () => {
             distinctio debitis doloribus temporibus itaque a molestiae
             laudantium ea, corrupti voluptas. Nesciunt, harum!
           </p>
-          <a className="inline-block sm:w-1/3 p-4 text-center text-white rounded-full bg-button-primary mr-4 font-extrabold text-lg cursor-pointer shadow-md transition-all duration-300 ease-in-out hover:bg-[#fb923c] hover:shadow-lg hover:w-2/5">
-            Register now
+          <a className="hidden sm:inline-block md:w-2/7 lg:w-1/3 p-4 text-center text-white rounded-full bg-button-primary mr-4 font-extrabold text-md lg:text-lg cursor-pointer shadow-md transition-all duration-300 ease-in-out hover:bg-[#fb923c] hover:shadow-lg lg:hover:w-2/5 sm:hover:w-3/5">
+            Rekisteröidy nyt
           </a>
-          <a className="inline-block sm:w-1/3 p-4 text-center text-[#343a40] rounded-full font-extrabold text-lg bg-white cursor-pointer shadow-md transition-all duration-300 hover:bg-[#e9ecef]  hover:shadow-lg hover:w-2/5 mb-24 md:mb-0">
-            Browse more &darr;
+          <a className="hidden sm:inline-block sm:w-2/7 lg:w-1/3 p-4 text-center text-[#343a40] rounded-full font-extrabold text-md  lg:text-lg bg-white cursor-pointer shadow-md transition-all duration-300 hover:bg-[#e9ecef]  hover:shadow-lg lg:hover:w-2/5 sm:hover:w-2/5 mb-24 md:mb-0">
+            Lue lisää &darr;
           </a>
         </div>
         <div className="w-full md:w-2/3 mb-24">
@@ -27,6 +27,14 @@ const FrontpageHero: React.FC = () => {
             className="object-contain"
             src="/header/frontpage-header-img.jpg"
           />
+        </div>
+        <div className="flex flex-col gap-5 sm:hidden mx-16">
+          <a className="inline-block w-full p-4 text-center text-white rounded-full bg-button-primary mr-4 font-extrabold text-md cursor-pointer shadow-md transition-all duration-300 ease-in-out hover:bg-[#fb923c] hover:shadow-lg">
+            Rekisteröidy nyt
+          </a>
+          <a className="inline-block w-full p-4 text-center text-[#343a40] rounded-full font-extrabold text-md  bg-white cursor-pointer shadow-md transition-all duration-300 hover:bg-[#e9ecef]  hover:shadow-lg mb-16 ">
+            Lue lisää &darr;
+          </a>
         </div>
       </div>
     </section>
