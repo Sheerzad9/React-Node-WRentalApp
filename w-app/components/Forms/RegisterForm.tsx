@@ -3,15 +3,72 @@
 import { AppDispatch } from "@/store";
 import { useDispatch } from "react-redux";
 import { modalActions } from "@/store/modal-slice";
-import { useFormik } from "formik";
+import { FormikHelpers, useFormik } from "formik";
 import { registerSchema } from "@/schemas/registerSchema";
+import { useState } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { loadSpinnerActions } from "@/store/loadspinner-slice";
+
+interface formValues {
+  firstname: string;
+  lastname: string;
+  email: string;
+  date_of_birth: string;
+  password: string;
+}
 
 const RegisterForm: React.FC = () => {
+  const [showSuccessMessage, setSuccessMessage] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
+  const supabase = createClientComponentClient();
 
-  const handleFormSubmit = async (values: any, actions: any) => {
+  /* TODO:
+    Tämä nyt toimii, vielä pitää testata miten reagoi jos yrittää rekisteröitä sähköpostilla joka löytyy jo kannasta, tarkista tämä 
+    virtuaalikoneessa siellä voi ajaa supabase kontin rajattomilla sähköpostiviesteillä! Päivitä koodia myös hieman tässä tiedostossa vastaamaan
+    virtuaalikoneen instanssiin!
+  */
+
+  const handleFormSubmit = async (values: formValues, actions: any) => {
     console.log("Arvot: ", values);
     console.log("Actions: ", actions);
+    const dobInFinnish = new Date(values.date_of_birth).toLocaleDateString("fi-FI", { dateStyle: "medium" });
+    //console.log("Päivämäärä suomenaikaa: ", dobInFinnish.toLocaleString("fi-FI", { dateStyle: "medium" }));
+    dispatch(loadSpinnerActions.showLoadSpinner());
+    const { data, error } = await supabase.auth.signUp({
+      email: values.email,
+      password: values.password,
+      options: {
+        data: {
+          firstname: values.firstname,
+          lastname: values.lastname,
+          date_of_birth: dobInFinnish,
+        },
+        emailRedirectTo: `${location.origin}/auth/callback`, // This is so we can extract the code and set the cookie
+      },
+    });
+    dispatch(loadSpinnerActions.hideLoadSpinner());
+
+    if (error) {
+      console.log("ERROR IN SIGNINGUP: ", error);
+      return;
+    }
+    console.log("DATA: ", data);
+
+    setSuccessMessage((currState) => true);
+    // const { data, error } = await supabase.auth.signUp({
+    //   email: "foxadi2024@ekposta.com",
+    //   password: "test123",
+    //   options: {
+    //     data: {
+    //       firstname: "Raul",
+    //       lastname: "Gonzalex",
+    //       date_of_birth: "12.01.1996",
+    //     },
+    //     emailRedirectTo: `${location.origin}/auth/callback`, // This is so we can extract the code and set the cookie
+    //   },
+    // });
+    // if (data) console.log("RESPONSE OF SIGNUP: ", data);
+    // if (error) console.log("ERROR IN SIGNUP: ", error);
   };
 
   const { values, handleBlur, touched, errors, handleChange, handleSubmit } = useFormik({
@@ -100,7 +157,7 @@ const RegisterForm: React.FC = () => {
             </div>
           </div>
           <div>
-            <div className="mb-12 flex align-middle">
+            <div className="mb-4 flex align-middle">
               <div>
                 <label className="block text-gray-700 text-sm font-bold">Salasana</label>
                 <input
@@ -118,6 +175,11 @@ const RegisterForm: React.FC = () => {
               </div>
             </div>
           </div>
+          {showSuccessMessage && (
+            <div>
+              <h4 className="text-center mb-6 text-gray-700 text-sm font-bold animate-bounce delay-200">Hienoa! Vahvistuslinkki on lähetetty sähköpostiisi.</h4>
+            </div>
+          )}
           <div className="flex items-center gap-10 flex-col w-full">
             <button
               className="bg-button-primary rounded-full text-white font-extrabold py-2 px-4  focus:outline-none focus:shadow-outline duration-300 ease-in-out hover:bg-[#fb923c]"
