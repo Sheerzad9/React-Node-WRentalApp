@@ -10,6 +10,7 @@ import profileAvatar from "../../public/avatars/account-avatar-profile.svg";
 import logo from "./../../app/assets/logo.png";
 import { RootState, AppDispatch } from "@/store";
 import { checkIsUserLoggedIn } from "@/store/user-slice";
+import Link from "next/link";
 
 const Menu: React.FC = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
@@ -40,7 +41,11 @@ const Menu: React.FC = () => {
       </a>
       <div className="flex items-center justify-between gap-12">
         <span>
-          <Image alt="image of profile" className="drop-shadow-xl h-20 w-32 hover:skew-y-12 hover:h-18 duration-500" src={profileAvatar} />
+          <Image
+            alt="image of profile"
+            className="drop-shadow-xl h-20 w-32 hover:skew-y-12 hover:h-18 duration-500"
+            src={profileAvatar}
+          />
         </span>
         <nav>
           <section className="MOBILE-MENU flex lg:hidden mr-16">
@@ -53,7 +58,12 @@ const Menu: React.FC = () => {
               <span className="block h-0.5 w-8 animate-pulse bg-gray-600"></span>
             </div>
 
-            <div className={"bg-[#FDF2E9] " + (isNavOpen ? classes.showMenuNav : classes.hideMenuNav)}>
+            <div
+              className={
+                "bg-[#FDF2E9] " +
+                (isNavOpen ? classes.showMenuNav : classes.hideMenuNav)
+              }
+            >
               {" "}
               <div
                 className="CROSS-ICON absolute top-0 right-0 px-8 py-8"
@@ -73,26 +83,36 @@ const Menu: React.FC = () => {
                 </svg>
               </div>
               <ul className="MENU-LINK-MOBILE-OPEN flex flex-col items-center justify-between min-h-[250px]">
-                <li className="border-b border-gray-400 my-8 uppercase">
-                  <a href="/about">About</a>
-                </li>
-                <li className="border-b border-gray-400 my-8 uppercase">
-                  <a href="/portfolio">Portfolio</a>
-                </li>
-                <li className="border-b border-gray-400 my-8 uppercase cursor-pointer">
-                  <a onClick={handleLoginModal}>Kirjaudu sisään</a>
-                </li>
+                {user.isLoggedin && (
+                  <Link
+                    href={`/profile?id=${user.id}`}
+                    className="border-b border-gray-400 my-8 uppercase"
+                  >
+                    Profiili
+                  </Link>
+                )}
+                {!user.isLoggedin ? (
+                  <li className="border-b border-gray-400 my-8 uppercase cursor-pointer">
+                    <a onClick={handleLoginModal}>Kirjaudu sisään</a>
+                  </li>
+                ) : (
+                  <li className="border-b border-gray-400 my-8 uppercase cursor-pointer">
+                    <a onClick={logout}>Kirjaudu ulos</a>
+                  </li>
+                )}
               </ul>
             </div>
           </section>
 
           <ul className="DESKTOP-MENU hidden space-x-8 lg:flex mr-20 text-[20px]">
-            <li className="hover:text-[24px] hover:underline duration-300 font-medium">
-              <a href="/about">About</a>
-            </li>
-            <li className="hover:text-[24px] hover:underline duration-300 font-medium">
-              <a href="/portfolio">Portfolio</a>
-            </li>
+            {user.isLoggedin && (
+              <Link
+                href={`/profile?id=${user.id}`}
+                className="hover:text-[24px] hover:underline duration-300 font-medium"
+              >
+                Profiili
+              </Link>
+            )}
             {!user.isLoggedin ? (
               <li className="hover:text-[24px] hover:underline duration-300 font-medium cursor-pointer">
                 <a onClick={handleLoginModal}>Kirjaudu sisään</a>
